@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>BTS Ask</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 12px;
+      background: #111;
+      color: #eee;
+    }
+    textarea {
+      width: 100%;
+      height: 6em;
+      background: #222;
+      color: #eee;
+      border: 1px solid #444;
+      padding: 8px;
+    }
+    button {
+      margin-top: 8px;
+      padding: 8px 12px;
+      background: #444;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    pre {
+      white-space: pre-wrap;
+      margin-top: 12px;
+      background: #1a1a1a;
+      padding: 8px;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+
+<h3>Burn the Sherlock / Ask</h3>
+
+<textarea id="q" placeholder="質問を書く"></textarea>
+<button onclick="ask()">送信</button>
+
+<pre id="out"></pre>
+
+<script>
+async function ask() {
+  const q = document.getElementById("q").value;
+  const out = document.getElementById("out");
+  out.textContent = "送信中…";
+
+  try {
+    const res = await fetch(
+      "https://phuseqexdczcdwhfskqt.supabase.co/functions/v1/ask",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_ANON_PUBLIC_KEY"
+        },
+        body: JSON.stringify({ question: q })
+      }
+    );
+
+    const json = await res.json();
+    out.textContent = json.answer ?? JSON.stringify(json, null, 2);
+
+  } catch (e) {
+    out.textContent = String(e);
+  }
+}
+</script>
+
+</body>
+</html>
