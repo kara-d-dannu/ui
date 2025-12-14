@@ -39,16 +39,7 @@
 </head>
 <body>
 
-<!-- 合言葉エリア（常に表示） -->
-<div id="auth" style="display:none">
-  <label>合言葉</label><br>
-  <input id="pass" type="password" placeholder="合言葉を入力"><br>
-  <button onclick="savePass()">保存 / 更新</button>
-  <button onclick="clearPass()">リセット</button>
-  <div id="authState"></div>
-</div>
 
-<hr>
 
 <!-- 質問エリア -->
 <div id="chat">
@@ -129,5 +120,15 @@ updateAuthState();
     line-height: 1.6;
 }
 </style>
+  <!-- 合言葉エリア（常に表示） -->
+<div id="auth">
+  <label>合言葉</label><br>
+  <input id="pass" type="password" placeholder="合言葉を入力"><br>
+  <button onclick="savePass()">保存 / 更新</button>
+  <button onclick="clearPass()">リセット</button>
+  <div id="authState"></div>
+</div>
+
+<hr>
 </body>
 </html>
