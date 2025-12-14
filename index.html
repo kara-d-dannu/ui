@@ -1,39 +1,31 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>BTS Ask</title>
-</head>
+<!doctype html>
+<html>
 <body>
-  <textarea id="q" placeholder="質問"></textarea>
-  <br>
-  <button onclick="send()">送信</button>
-  <pre id="out"></pre>
+<textarea id="q"></textarea>
+<button onclick="send()">送信</button>
+<pre id="out"></pre>
 
-  <script>
-    async function send() {
-      const q = document.getElementById("q").value;
-      const out = document.getElementById("out");
-      out.textContent = "送信中…";
+<script>
+async function send() {
+  const q = document.getElementById("q").value;
+  const out = document.getElementById("out");
 
-      try {
-        const res = await fetch(
-          "https://phuseqexdczcdwhfskqt.supabase.co/functions/v1/ask",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ question: q }),
-          }
-        );
-
-        const json = await res.json();
-        out.textContent = JSON.stringify(json, null, 2);
-      } catch (e) {
-        out.textContent = "通信エラー: " + e;
+  try {
+    const res = await fetch(
+      "https://phuseqexdczcdwhfskqt.supabase.co/functions/v1/ask",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: q }),
       }
-    }
-  </script>
+    );
+
+    const json = await res.json();
+    out.textContent = JSON.stringify(json, null, 2);
+  } catch (e) {
+    out.textContent = "通信エラー: " + e;
+  }
+}
+</script>
 </body>
 </html>
